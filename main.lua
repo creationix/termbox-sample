@@ -6,10 +6,8 @@ tb.tb_init()
 local function write(string, x, y, fg, bg)
   local i, l = 1, #string
   local uni = ffi.new("uint32_t[1]")
-  local char = ffi.new("char[1]")
   while i <= l do
-    char[0] = string:byte(i)
-    i = i + tb.tb_utf8_char_to_unicode(uni, char)
+    i = i + tb.tb_utf8_char_to_unicode(uni, string:sub(i))
     tb.tb_change_cell(x, y, uni[0], fg, bg)
     x = x + 1
   end
