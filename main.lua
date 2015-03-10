@@ -18,8 +18,9 @@ end
 tb.tb_select_output_mode(tb.TB_OUTPUT_216)
 local event = ffi.new("struct tb_event")
 local j = 0
-local space  = "                   "
-local banner = " Press ESC to Exit "
+local top    = "╭───────────────────╮"
+local banner = "│ Press ESC to Exit │"
+local bottom = "╰───────────────────╯"
 repeat
   local width, height = tb.tb_width(), tb.tb_height()
   tb.tb_clear()
@@ -31,9 +32,9 @@ repeat
   end
   local ox = math.floor((width - #banner) / 2)
   local oy = math.floor((height - 3) / 2)
-  write(space,  ox, oy, 8, j)
+  write(top,    ox, oy, 8, j)
   write(banner, ox, oy + 1, 8, j)
-  write(space,  ox, oy + 2, 8, j)
+  write(bottom, ox, oy + 2, 8, j)
   tb.tb_present()
   tb.tb_peek_event(event, 13)
   j = (j + 1) % 216
